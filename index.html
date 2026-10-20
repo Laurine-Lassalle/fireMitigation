@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Environmental Scenarios — Interactive Slider</title>
+<style>
+:root{--ink:#202522;--muted:#5c655f;--line:#d8ded9;--accent:#28684f;--accent-soft:#e4eee8;--focus:#0b65c2;--max-width:900px}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);background:#fff;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}
+  
+.scenario-widget{width:min(100%,var(--max-width));margin:0 auto;padding:clamp(16px,3vw,28px)}
+    
+h1{margin:0;max-width:24ch;font-size:30px;line-height:1.12;letter-spacing:-.035em}
+  
+.intro{max-width:68ch;margin:12px 0 22px;color:var(--muted);font-size:1rem}
+.image-frame{position:relative;overflow:hidden; width:100%;height: 570px; background:#e8ece9;border-radius:5px}.scenario-image{display: block; width: 100%;
+  height: auto;}
+.scenario-copy{padding:18px 0 20px;border-bottom:1px solid var(--line)}
+  
+.scenario-title{margin:0 0 7px;font-size: 20px;line-height:1.2;letter-spacing:-.02em}.scenario-caption{max-width:72ch;margin:0;color:#3d4540;font-size:1rem}
+.controls{padding-top:18px}.control-topline{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px}.control-label{font-size:.9rem;font-weight:700}.current-step{color:var(--muted);font-size:.82rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.range{display:block;width:100%;margin:12px 0 8px;accent-color:var(--accent);cursor:pointer}.range:focus-visible,.scenario-button:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+  
+.step-buttons{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:10px}.scenario-button{min-width:0;min-height:20px;padding:8px 5px;border:1px solid var(--line);border-radius:4px;color:var(--ink);background:#fff;font:inherit;font-size:.78rem;line-height:1.2;cursor:pointer;overflow-wrap:anywhere}
+.scenario-button[aria-pressed="true"]{border-color:var(--accent);color:#174a36;background:var(--accent-soft);font-weight:750}.widget-note{margin:1px 0 0;padding-top:1px; color:var(--muted);font-size:.6rem}
+@media(max-width:540px){.scenario-widget{padding:16px}.step-buttons{gap:5px}.scenario-button{padding:3px 3px;font-size:.5rem}}
+@media(prefers-reduced-motion:no-preference){.scenario-image{animation:appear 180ms ease-out}@keyframes appear{from{opacity:.72}to{opacity:1}}}
+</style></head>
+  
+  
+<body><main class="scenario-widget" aria-labelledby="widget-title">
+<h1 id="widget-title">Fire mitigation impacts</h1>
+  
+<section class="controls" aria-label="Scenario controls">
+<div class="control-topline"><label class="control-label" for="scenario-range">Compare scenarios</label></div>
+  
+<div class="step-buttons" aria-label="Choose a scenario">
+<button class="scenario-button" type="button" data-index="0" aria-pressed="true">1 · No mitigation</button>
+<button class="scenario-button" type="button" data-index="1" aria-pressed="false">2 · Mitigation ($5M)</button>
+<button class="scenario-button" type="button" data-index="2" aria-pressed="false">3 · Mitigation and Hardening ($5M)</button>
+<button class="scenario-button" type="button" data-index="3" aria-pressed="false">4 · Mitigation ($25M)</button>
+<button class="scenario-button" type="button" data-index="4" aria-pressed="false">5 · Mitigation and Hardening ($25M)</button>
+
+      
+  </div></section>  
+  
+<section class="scenario-copy" aria-live="polite" aria-atomic="true"><h2 class="scenario-title" id="scenario-title"></h2><p class="scenario-caption" id="scenario-caption">Describe the baseline conditions shown in this image. Keep the caption concise and evidence-based.</p></section>  
+  
+<figure style="margin:0"><div class="image-frame"><img id="scenario-image" class="scenario-image" src="images/scenario-1.jpg" alt="Landscape under current conditions" width="800" height="576"></div><figcaption class="image-credit" id="image-credit">Replace with image credit or source, if needed.</figcaption></figure>
+  
+
+<p class="widget-note">Source: TOSV and Aspen<br> Credit: Laurine Lassalle - Aspen Journalism</p></main>
+  
+  
+<script>
+/* Customize these five entries. Image paths are relative to this HTML file. */
+const scenarios=[
+{image:"current.png",title:"No mitigation",alt:"Landscape under No mitigation scenario"},
+{image:"mitigation5M.png",title:"Mitigation ($5M)", alt:"Landscape under the Mitigation ($5M) scenario"},
+{image:"mitigationHardening5M.png",title:"Mitigation and Hardening ($5M)", alt:"Landscape under the Mitigation and Hardening ($5M) scenario"},
+{image:"mitigation25M.png",title:"Mitigation ($25M)",alt:"Landscape under the Mitigation ($25M) scenario"},
+{image:"mitigationHardening25M.png",title:"Mitigation and Hardening ($25M)",alt:"Landscape under the Mitigation and Hardening ($25M) scenario"}
+];
+const imageEl=document.getElementById("scenario-image"),numberEl=document.getElementById("scenario-number"),titleEl=document.getElementById("scenario-title"),captionEl=document.getElementById("scenario-caption"),creditEl=document.getElementById("image-credit"),currentStepEl=document.getElementById("current-step"),buttons=[...document.querySelectorAll(".scenario-button")];
+function showScenario(index){const s=scenarios[index];if(!s)return;imageEl.onerror=()=>{imageEl.onerror=null;imageEl.alt=s.alt+" (Image could not be loaded; check the image path.)"};imageEl.src=s.image;imageEl.alt=s.alt;titleEl.textContent=s.title;captionEl.textContent=s.caption;creditEl.textContent=s.credit||"";buttons.forEach((b,i)=>b.setAttribute("aria-pressed",String(i===index)))}
+;buttons.forEach(b=>b.addEventListener("click",()=>showScenario(Number(b.dataset.index))));showScenario(0);
+</script></body></html>
