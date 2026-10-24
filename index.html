@@ -9,7 +9,7 @@
   
 *{box-sizing:border-box}body{margin:0;color:var(--ink);background:#fff;font-family: Arial,sans-serif;line-height:1.5}
   
-.scenario-widget{width:min(100%,var(--max-width));margin:0 auto;padding:clamp(16px,3vw,28px)}
+.scenario-widget{width:min(100%,var(--max-width));margin:0 auto;padding:clamp(10px,1px,28px)}
     
 h1{margin:0;max-width:24ch;font-size:30px;line-height:0.3;letter-spacing:-.035em}
   
@@ -38,7 +38,7 @@ h1{margin:0;max-width:24ch;font-size:30px;line-height:0.3;letter-spacing:-.035em
 .scenario-button[aria-pressed="true"]{border-color:var(--accent);color:#174a36;background:var(--accent-soft);font-weight:750}
   
 .widget-note{margin:1px 0 0;padding-top:1px; color:var(--muted);font-size:.6rem}
-@media(max-width:540px){.scenario-widget{padding:16px}.step-buttons{gap:5px}.scenario-button{padding:3px 3px;font-size:.5rem}}
+@media(max-width:540px){.scenario-widget{padding:16px 0}.step-buttons{gap:5px}.scenario-button{padding:3px 3px;font-size:.5rem}}
 @media(prefers-reduced-motion:no-preference){.scenario-image{animation:appear 180ms ease-out}@keyframes appear{from{opacity:.72}to{opacity:1}}}
   
 
@@ -81,8 +81,8 @@ h1{margin:0;max-width:24ch;font-size:30px;line-height:0.3;letter-spacing:-.035em
 </style></head>
   
   
-<body><main class="scenario-widget" aria-labelledby="widget-title">
-<h1 id="widget-title">Fire mitigation impacts</h1>
+<body><main class="scenario-widget">
+<h1>Fire mitigation impacts</h1>
   
 <section class="controls" aria-label="Scenario controls">
 <div class="control-topline"><label class="control-label" for="scenario-range">Compare scenarios</label></div>
